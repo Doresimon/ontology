@@ -20,13 +20,14 @@ package common
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/ontio/ontology/account"
 	"github.com/ontio/ontology/cmd/utils"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/common/config"
 	"github.com/ontio/ontology/common/password"
 	"github.com/urfave/cli"
-	"strconv"
 )
 
 func GetPasswd(ctx *cli.Context) ([]byte, error) {
@@ -62,6 +63,7 @@ func GetAccountMulti(wallet account.Client, passwd []byte, accAddr string) (*acc
 	//Address maybe address in base58, label or index
 	if accAddr == "" {
 		defAcc, err := wallet.GetDefaultAccount(passwd)
+		// log.Infof("AAAAAAAAAAAAAAAAAAA-defAcc: %s\n", defAcc.Address)
 		if err != nil {
 			return nil, err
 		}

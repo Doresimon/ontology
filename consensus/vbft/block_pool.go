@@ -25,6 +25,7 @@ import (
 	"math"
 	"sync"
 
+	"github.com/ontio/ontology-crypto/abls"
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/common/log"
@@ -608,13 +609,18 @@ func (pool *BlockPool) addSignaturesToBlockLocked(block *Block, forEmpty bool) e
 			}
 		}
 	}
+	log.Infof("addSignaturesToBlockLocked() AAAAAAAAAAAAAAAAAAA-sigData: %v\n", sigData)
+
+	asig := abls.AggregateSigByte(sigData)
 
 	if !forEmpty {
 		block.Block.Header.Bookkeepers = bookkeepers
 		block.Block.Header.SigData = sigData
+		block.Block.Header.ASigData = asig
 	} else {
 		block.EmptyBlock.Header.Bookkeepers = bookkeepers
 		block.EmptyBlock.Header.SigData = sigData
+		block.Block.Header.ASigData = asig
 	}
 
 	return nil

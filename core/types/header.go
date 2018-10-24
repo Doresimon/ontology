@@ -44,6 +44,7 @@ type Header struct {
 	//Program *program.Program
 	Bookkeepers []keypair.PublicKey // public keys
 	SigData     [][]byte            // multiple signatures
+	ASigData    []byte              // aggregate multiple signatures
 
 	hash *common.Uint256
 }
@@ -75,6 +76,8 @@ func (bd *Header) Serialize(w io.Writer) error {
 		}
 	}
 
+	err = serialization.WriteVarBytes(w, bd.ASigData)
+
 	return nil
 }
 
@@ -90,6 +93,8 @@ func (bd *Header) Serialization(sink *common.ZeroCopySink) error {
 	for _, sig := range bd.SigData {
 		sink.WriteVarBytes(sig)
 	}
+
+	sink.WriteVarBytes(bd.ASigData)
 
 	return nil
 }
@@ -184,6 +189,8 @@ func (bd *Header) Deserialize(r io.Reader) error {
 		bd.SigData = append(bd.SigData, sig)
 	}
 
+	bd.ASigData, _ = serialization.ReadVarBytes(r)
+
 	return nil
 }
 
@@ -244,6 +251,8 @@ func (bd *Header) Deserialization(source *common.ZeroCopySource) error {
 		}
 		bd.SigData = append(bd.SigData, sig)
 	}
+
+	bd.ASigData, _, _, _ = source.NextVarBytes()
 
 	return nil
 }

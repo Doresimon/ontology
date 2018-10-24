@@ -147,6 +147,8 @@ func startOntology(ctx *cli.Context) {
 		return
 	}
 	acc, err := initAccount(ctx)
+	// fmt.Printf("AAAAAAAAAAAAAAAAAAAAAAAAA-acc: %v\n")
+
 	if err != nil {
 		log.Errorf("initWallet error:%s", err)
 		return
