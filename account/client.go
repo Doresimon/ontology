@@ -558,6 +558,12 @@ func (this *ClientImpl) checkSigScheme(keyType, sigScheme string) bool {
 		default:
 			return false
 		}
+	case "BN256":
+		switch strings.ToUpper(sigScheme) {
+		case "SOLOBLS":
+		default:
+			return false
+		}
 	default:
 		return false
 	}

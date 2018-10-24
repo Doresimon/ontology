@@ -42,8 +42,8 @@ type Header struct {
 	NextBookkeeper   common.Address
 
 	//Program *program.Program
-	Bookkeepers []keypair.PublicKey
-	SigData     [][]byte
+	Bookkeepers []keypair.PublicKey // public keys
+	SigData     [][]byte            // multiple signatures
 
 	hash *common.Uint256
 }

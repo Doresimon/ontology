@@ -112,11 +112,16 @@ func GetNetworkName(id uint32) string {
 }
 
 var PolarisConfig = &GenesisConfig{
+	// SeedList: []string{
+	// 	"polaris1.ont.io:20338",
+	// 	"polaris2.ont.io:20338",
+	// 	"polaris3.ont.io:20338",
+	// 	"polaris4.ont.io:20338"},
 	SeedList: []string{
-		"polaris1.ont.io:20338",
-		"polaris2.ont.io:20338",
-		"polaris3.ont.io:20338",
-		"polaris4.ont.io:20338"},
+		"127.0.0.1:20418",
+		"127.0.0.1:20428",
+		"127.0.0.1:20438",
+		"127.0.0.1:20448"},
 	ConsensusType: CONSENSUS_TYPE_VBFT,
 	VBFT: &VBFTConfig{
 		N:                    7,
@@ -181,12 +186,20 @@ var PolarisConfig = &GenesisConfig{
 }
 
 var MainNetConfig = &GenesisConfig{
+	// SeedList: []string{
+	// 	"seed1.ont.io:20338",
+	// 	"seed2.ont.io:20338",
+	// 	"seed3.ont.io:20338",
+	// 	"seed4.ont.io:20338",
+	// 	"seed5.ont.io:20338"},
 	SeedList: []string{
-		"seed1.ont.io:20338",
-		"seed2.ont.io:20338",
-		"seed3.ont.io:20338",
-		"seed4.ont.io:20338",
-		"seed5.ont.io:20338"},
+		"127.0.0.1:20418",
+		"127.0.0.1:20428",
+		"127.0.0.1:20438",
+		"127.0.0.1:20448",
+		"127.0.0.1:20458",
+		"127.0.0.1:20468",
+		"127.0.0.1:20478"},
 	ConsensusType: CONSENSUS_TYPE_VBFT,
 	VBFT: &VBFTConfig{
 		N:                    7,
@@ -204,38 +217,38 @@ var MainNetConfig = &GenesisConfig{
 		Peers: []*VBFTPeerStakeInfo{
 			{
 				Index:      1,
-				PeerPubkey: "03348c8fe64e1defb408676b6e320038bd2e592c802e27c3d7e88e68270076c2f7",
-				Address:    "AZavFr7sQ4em2NmqWDjLMY34tHMQzATWgx",
+				PeerPubkey: "ffff89c6d35521e0255d47f0097e202431b1923047622eae4a0a723bd755e37b8fce79a90f3263dfbfc29babf5427a34f0ba42085275ed78073b074a99a1bacc4e2a177b62a42b3afb627b4ad22d9843ab0cf57cb5461ebc780aa3d623dbe061b32a285fa1bbe99121ec8ec8cb1f135d7ff50d760cf8e14d791f0cd93a125c4b3112",
+				Address:    "Ad3r9vpt7aVC6zcrBXvNwuReTkenrigKCr",
 			},
 			{
 				Index:      2,
-				PeerPubkey: "03afd920a3b4ce2e7175a32c0d092153d1a11ef5e0dcc14e71c85101b95518d5d7",
-				Address:    "AM9jHMV7xY4HWH2dWmzyxrtnbi6ErNt7oL",
+				PeerPubkey: "ffff401d0ebd1c0ae6dd013ac04215c4c0c0a7a21d7f0401b6809137f5475b1ec2f00d02a0b293edf29795c2ffaeee8cbe6c7de121a70c3ba44a12f5e5250413b1ed57af102cbb876a715f38830116954d39d63b760aed6657b4d2f3d6c83198cecc1a7ed0c48b83faf6c697e01675755921620561a026186de9ffb98b469f028599",
+				Address:    "AKkW4FjMMDt8waDZ7Y3KLYoSSvai1i6gUC",
 			},
 			{
 				Index:      3,
-				PeerPubkey: "03e818b65a66d983a99497e06c6552ee5067229e85ba1cec60c5477dc3d568ed43",
-				Address:    "ATECwFPNRZFydFR1yUjb6RTLfVcKGKWRmp",
+				PeerPubkey: "ffff2e2da6d8f0da61badbdb66567b0b4fb5b09e8ed924216d58a886f189aa1bc8d458b97f030c8d872dc1210b93083d0220a83e8383a0be7308a389832518d0c76885a398e3e40a00f5ea41283e5f909350345733847b6ec06847e46e2eadb2e5ef4fd4aca6408f1153ffbc73fa5a14236cb9764463bfd1c4ce56b676257bc1c9e0",
+				Address:    "AVygXFE4Szt2fWAgfjFPn1kNhphCTKQ9rW",
 			},
 			{
 				Index:      4,
-				PeerPubkey: "02375e44e500f9cfe8bd2f4afa4a016a8a902567996c919b9d1ce4f5d4f930f145",
-				Address:    "AKMxTuHQtt5YspXNPwkQNP5ZY66c4LY5BR",
+				PeerPubkey: "ffff4e76b2f0846422f27a0c905615129e6609646587cc03d641561142d29e9272f03f22bc90deb1a3e7bd0636c806fc4fc576e4528d721782fc76dc2854891c8c04453a5e497fa29b22ac65564ca6626fb5835795ff4419f3d09eb3e7ede7395f1d6d6980fe6e46c2b598e834ea37057777a58989c60b0b170a4bd54a18aeab699c",
+				Address:    "AeR1zfA1v1TYb7apqzjzWZ6Xv4xXR3tdDU",
 			},
 			{
 				Index:      5,
-				PeerPubkey: "03af040c09af5e06cf966f73fc99e8f4372f1510fe6e4376824452a99b85695a9c",
-				Address:    "AT4fXp36Ui22Lbh5ZJUCRBFDJ7axkLyUFM",
+				PeerPubkey: "ffff2f8fddf1571da8b6151b92f58a2b6a7d27cdb7cd81bba10611e1c34aff089190359ca5285613b11c64aeb66213a3a503a7ee18c846dcba8ecefcc71218122f516f8e59b36c0185c39aa9beceb3f432057b6baf428cd24283d250c1e44057597b8cec001a23536012001eb7f7b686b416b507da2e9515acb5d34c52d82aee9fcd",
+				Address:    "Ae2dp3H2kY6vcMcQBfhc5DUQVCS7Yfuw3B",
 			},
 			{
 				Index:      6,
-				PeerPubkey: "034ee2a4368e999fc7c04e7e3a9073162d47712382f1690d6a67e7e1c475cd0ff3",
-				Address:    "ANLRokqieUtrUMave66FcNy2cxV7Whf4UN",
+				PeerPubkey: "ffff7c2196db99fa816767ee84e129544d9d4c2e9353ee4b3298934fd907270c6c421cb3b88d203b7d101b8e706d605a7f96adfec33c104ca6499d51d95ec00ace7a220ab2ca679e3fe3f9a64e024293e38c08c9ac1841dd0e5809794a9205e4ad7f2beb07df3198031d913b17c83e76b63ef1246f0a3577f7d69fee87445c184dc5",
+				Address:    "ALqNJ9HVRxxgbKMqfaMThcrYi3GLWn6qFw",
 			},
 			{
 				Index:      7,
-				PeerPubkey: "0327f9e0fb3b894027c52caf3d31d9ac5f676d3cf892c933ac107ed7447fb6e65b",
-				Address:    "AVRD9QmkYNq8n8DXc9AqpZnUEYhjg1aq5L",
+				PeerPubkey: "ffff0b4fd948d1038ce678d9ca07e410029a52a29ff8c8b378e6229c694439a56f2d2ab18043ec96732816b7fbd00bac84cd9823353b8df55291937e96738b80ae838abee92f49439dc7bcb437954145587186e90c9f991c67eb770f0709236b0f666b71d3fb4d1c687c380f5575c5dd34b5849e68645bdef82c3402ff30283caf26",
+				Address:    "AbtsQ3NGXm1SHtLNo9YL2gTveje6tMcUwE",
 			},
 		},
 	},

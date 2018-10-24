@@ -453,6 +453,11 @@ func (self *Server) initialize() error {
 	//index equal math.MaxUint32  is noconsensus node
 	id := vconfig.PubkeyID(self.account.PublicKey)
 	index, present := self.peerPool.GetPeerIndex(id)
+
+	log.Infof("xxxxxxxxxxxxxxxxx-id: %v", id)
+	log.Infof("xxxxxxxxxxxxxxxxx-index: %v", index)
+	log.Infof("xxxxxxxxxxxxxxxxx-present: %v", present)
+
 	if present {
 		self.Index = index
 	} else {

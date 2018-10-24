@@ -30,6 +30,7 @@ Select a signature algorithm from the following:
   1  ECDSA
   2  SM2
   3  Ed25519
+  4  bn256
 
 [default is 1]: `)
 		break
@@ -61,6 +62,7 @@ Select a signature scheme from the following:
   7  SHA3-384withECDSA
   8  SHA3-512withECDSA
   9  RIPEMD160withECDSA
+  10  SOLOBLS
 
 This can be changed later [default is 2]: `)
 		break
