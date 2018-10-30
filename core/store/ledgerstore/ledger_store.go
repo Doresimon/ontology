@@ -29,6 +29,8 @@ import (
 
 	"strconv"
 
+	"time"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/common/config"
@@ -52,7 +54,6 @@ import (
 	"github.com/ontio/ontology/smartcontract/service/neovm"
 	sstate "github.com/ontio/ontology/smartcontract/states"
 	"github.com/ontio/ontology/smartcontract/storage"
-	"time"
 )
 
 const (
@@ -456,6 +457,13 @@ func (this *LedgerStoreImp) verifyHeader(header *types.Header, vbftPeerInfo map[
 			log.Errorf("VerifyMultiSignature:%s,Bookkeepers:%d,pubkey:%d,heigh:%d", err, len(header.Bookkeepers), len(vbftPeerInfo), header.Height)
 			return vbftPeerInfo, err
 		}
+		// Halo:
+		// aggrerate signature verification
+		errAsig := signature.VerifyABLSMultiSignature(hash[:], header.Bookkeepers, m, header.ASigData)
+		if errAsig != nil {
+			return vbftPeerInfo, errAsig
+		}
+
 		blkInfo, err := vconfig.VbftBlock(header)
 		if err != nil {
 			return vbftPeerInfo, err
