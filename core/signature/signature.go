@@ -107,32 +107,14 @@ func VerifyABLSMultiSignature(data []byte, keys []keypair.PublicKey, m int, asig
 	msgs := make([]string, 0, len(keys))
 
 	for _, pk := range keys {
-		// sig, _ := new(bn256.G1).Unmarshal(sigBytes[1:])
-		// log.Infof("AggregateSigByte() AAAAAAAAAAAAAAAAAAA-sig: %v\n", sig)
-		// sigs = append(sigs, sig)
 		msgs = append(msgs, string(data))
-		// log.Infof("VerifyABLSMultiSignature(): msgs.length=%v", len(msgs))
-		// log.Infof("VerifyABLSMultiSignature(): pk=%v", pk)
-		// log.Infof("######################################")
-		// log.Infof("######################################")
-		// log.Infof("######################################")
-		// log.Infof("VerifyABLSMultiSignature(): pk=%v", pk.(abls.PublicKey))
+
 		p, _ := new(bn256.G2).Unmarshal(pk.(abls.PublicKey))
-		// p, _ := new(bn256.G2).Unmarshal(pk)
-		log.Infof("VerifyABLSMultiSignature(): p=%v", p)
+
 		pks = append(pks, p)
-		log.Infof("VerifyABLSMultiSignature(): pks.length=%v", len(pks))
 	}
-	log.Infof("######################################")
-	log.Infof("VerifyABLSMultiSignature(): pks.length=%v", len(pks))
-	log.Infof("VerifyABLSMultiSignature(): msgs.length=%v", len(msgs))
-	log.Infof("VerifyABLSMultiSignature(): asig.v=%v", asig)
-	log.Infof("######################################")
 
 	r := abls.AVerify(asig, msgs, pks)
-
-	// fmt.Printf("asig verify result = %v\n", r)
-	log.Infof("VerifyABLSMultiSignature(): asig verify result = %v\n", r)
 
 	return nil
 }
