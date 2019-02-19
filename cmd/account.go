@@ -21,13 +21,14 @@ package cmd
 import (
 	"bufio"
 	"fmt"
+	"strings"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	s "github.com/ontio/ontology-crypto/signature"
 	"github.com/ontio/ontology/cmd/common"
 	"github.com/ontio/ontology/cmd/utils"
 	"github.com/ontio/ontology/common/config"
 	"github.com/urfave/cli"
-	"strings"
 )
 
 //map info, to get some information easily
@@ -41,10 +42,12 @@ var keyTypeMap = map[string]keyTypeInfo{
 	"1": {"ecdsa", keypair.PK_ECDSA},
 	"2": {"sm2", keypair.PK_SM2},
 	"3": {"ed25519", keypair.PK_EDDSA},
+	"4": {"bn256", keypair.PK_BN256},
 
 	"ecdsa":   {"ecdsa", keypair.PK_ECDSA},
 	"sm2":     {"sm2", keypair.PK_SM2},
 	"ed25519": {"ed25519", keypair.PK_EDDSA},
+	"bn256":   {"bn256", keypair.PK_BN256},
 }
 
 type curveInfo struct {
@@ -71,6 +74,7 @@ var curveMap = map[string]curveInfo{
 
 	"SM2P256V1": {"SM2P256V1", keypair.SM2P256V1},
 	"ED25519":   {"ED25519", keypair.ED25519},
+	"BN256":     {"BN256", keypair.BN256},
 }
 
 type schemeInfo struct {
@@ -79,16 +83,17 @@ type schemeInfo struct {
 }
 
 var schemeMap = map[string]schemeInfo{
-	"":  {"SHA256withECDSA", s.SHA256withECDSA},
-	"1": {"SHA224withECDSA", s.SHA224withECDSA},
-	"2": {"SHA256withECDSA", s.SHA256withECDSA},
-	"3": {"SHA384withECDSA", s.SHA384withECDSA},
-	"4": {"SHA512withECDSA", s.SHA512withECDSA},
-	"5": {"SHA3-224withECDSA", s.SHA3_224withECDSA},
-	"6": {"SHA3-256withECDSA", s.SHA3_256withECDSA},
-	"7": {"SHA3-384withECDSA", s.SHA3_384withECDSA},
-	"8": {"SHA3-512withECDSA", s.SHA3_512withECDSA},
-	"9": {"RIPEMD160withECDSA", s.RIPEMD160withECDSA},
+	"":   {"SHA256withECDSA", s.SHA256withECDSA},
+	"1":  {"SHA224withECDSA", s.SHA224withECDSA},
+	"2":  {"SHA256withECDSA", s.SHA256withECDSA},
+	"3":  {"SHA384withECDSA", s.SHA384withECDSA},
+	"4":  {"SHA512withECDSA", s.SHA512withECDSA},
+	"5":  {"SHA3-224withECDSA", s.SHA3_224withECDSA},
+	"6":  {"SHA3-256withECDSA", s.SHA3_256withECDSA},
+	"7":  {"SHA3-384withECDSA", s.SHA3_384withECDSA},
+	"8":  {"SHA3-512withECDSA", s.SHA3_512withECDSA},
+	"9":  {"RIPEMD160withECDSA", s.RIPEMD160withECDSA},
+	"10": {"SOLOBLS", s.SOLOBLS},
 
 	"SHA224withECDSA":    {"SHA224withECDSA", s.SHA224withECDSA},
 	"SHA256withECDSA":    {"SHA256withECDSA", s.SHA256withECDSA},
@@ -102,6 +107,7 @@ var schemeMap = map[string]schemeInfo{
 
 	"SM3withSM2":      {"SM3withSM2", s.SM3withSM2},
 	"SHA512withEdDSA": {"SHA512withEdDSA", s.SHA512withEDDSA},
+	"SOLOBLS":         {"SOLOBLS", s.SOLOBLS},
 }
 
 // wait for user to choose options
@@ -225,6 +231,10 @@ func checkCurve(ctx *cli.Context, reader *bufio.Reader, t *string) string {
 		fmt.Println("Use curve 25519 with key length of 256 bits.")
 		c = "ED25519"
 		break
+	case "bn256":
+		fmt.Println("Use curve bn256 with key length of 256 bits.")
+		c = "BN256"
+		break
 	default:
 		return ""
 	}
@@ -255,6 +265,11 @@ func checkScheme(ctx *cli.Context, reader *bufio.Reader, t *string) string {
 		fmt.Println("Use SHA512withEdDSA as the signature scheme.")
 		sch = "SHA512withEdDSA"
 		break
+	case "bn256":
+		fmt.Println("Use SOLOBLS as the signature scheme.")
+		sch = "SOLOBLS"
+		break
+
 	default:
 		return ""
 	}
