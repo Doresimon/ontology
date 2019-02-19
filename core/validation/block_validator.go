@@ -42,6 +42,13 @@ func VerifyBlock(block *types.Block, ld *ledger.Ledger, completely bool) error {
 		return err
 	}
 
+	// ## AGG.
+	// aggrerate signature verification
+	errAsig := signature.VerifyABLSMultiSignature(hash[:], header.Bookkeepers, m, header.ASigData)
+	if errAsig != nil {
+		return errAsig
+	}
+
 	prevHeader, err := ld.GetHeaderByHash(block.Header.PrevBlockHash)
 	if err != nil {
 		return fmt.Errorf("[BlockValidator], can not find prevHeader: %s", err)

@@ -20,6 +20,11 @@ package signature
 
 import (
 	"errors"
+
+	"github.com/ontio/ontology-crypto/abls"
+	"github.com/ontio/ontology/common/log"
+	"golang.org/x/crypto/bn256"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	s "github.com/ontio/ontology-crypto/signature"
 )
@@ -81,4 +86,40 @@ func VerifyMultiSignature(data []byte, keys []keypair.PublicKey, m int, sigs [][
 	}
 
 	return nil
+}
+
+// ## AGG.
+// VerifyABLSMultiSignature check whether more than m sigs are signed by the keys
+func VerifyABLSMultiSignature(data []byte, keys []keypair.PublicKey, m int, asigByte []byte) error {
+	n := len(keys)
+
+	if m != n {
+		log.Infof("VerifyABLSMultiSignature(): m!=n, m = %v, n=%v", m, n)
+	}
+
+	asig, _ := new(bn256.G1).Unmarshal(asigByte)
+
+	if asig == nil {
+		log.Infof("VerifyABLSMultiSignature(): asig=%v", asig)
+		return nil
+	}
+
+	pks := make([]*bn256.G2, 0, len(keys))
+	msgs := make([]string, 0, len(keys))
+
+	for _, pk := range keys {
+		msgs = append(msgs, string(data))
+
+		p, _ := new(bn256.G2).Unmarshal(pk.(abls.PublicKey))
+
+		pks = append(pks, p)
+	}
+
+	ok := abls.AVerify(asig, msgs, pks)
+
+	if ok {
+		return errors.New("aggregate signature verified failed")
+	}
+	return nil
+
 }

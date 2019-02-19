@@ -30,6 +30,7 @@ Select a signature algorithm from the following:
   1  ECDSA
   2  SM2
   3  Ed25519
+  4  bn256
 
 [default is 1]: `)
 		break

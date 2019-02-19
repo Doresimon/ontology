@@ -40,6 +40,7 @@ type Header struct {
 	//Program *program.Program
 	Bookkeepers []keypair.PublicKey
 	SigData     [][]byte
+	ASigData    []byte // ## AGG. aggregate multiple signatures
 
 	hash *common.Uint256
 }
@@ -56,6 +57,9 @@ func (bd *Header) Serialization(sink *common.ZeroCopySink) error {
 	for _, sig := range bd.SigData {
 		sink.WriteVarBytes(sig)
 	}
+
+	// ## AGG.
+	sink.WriteVarBytes(bd.ASigData)
 
 	return nil
 }
@@ -129,6 +133,15 @@ func (bd *Header) Deserialization(source *common.ZeroCopySource) error {
 			return common.ErrIrregularData
 		}
 		bd.SigData = append(bd.SigData, sig)
+	}
+
+	// ## AGG.
+	bd.ASigData, _, irregular, eof = source.NextVarBytes()
+	if eof {
+		return io.ErrUnexpectedEOF
+	}
+	if irregular {
+		return common.ErrIrregularData
 	}
 
 	return nil
